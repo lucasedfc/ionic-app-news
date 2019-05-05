@@ -1,9 +1,17 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="dark">
     <ion-title>
-      Tab Two
+      Encabezados
     </ion-title>
   </ion-toolbar>
+
+  <ion-segment scrollable mode="md" color="primary">
+
+    <ion-segment-button mode="md" value="option" *ngFor="let category of categories" [value]="category">
+      <ion-label text-capitalize>{{category}}</ion-label>
+    </ion-segment-button>
+
+  </ion-segment>
 </ion-header>
 
 <ion-content></ion-content>
