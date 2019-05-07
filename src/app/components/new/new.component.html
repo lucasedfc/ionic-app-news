@@ -5,10 +5,10 @@
         <span class="news-source-name">{{element.source.name}}</span>
         
       </ion-card-subtitle>
-      <ion-card-title>{{element.title}}</ion-card-title>
+      <ion-card-title (click)="openNews()">{{element.title}}</ion-card-title>
     </ion-card-header>
 
-    <ion-img *ngIf="element.urlToImage" [src]="element.urlToImage"></ion-img>
+    <ion-img *ngIf="element.urlToImage" [src]="element.urlToImage" (click)="openNews()"></ion-img>
 
     <ion-card-content>
       <p>{{element.description}}</p>
