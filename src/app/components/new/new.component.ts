@@ -15,6 +15,7 @@ export class NewComponent implements OnInit {
 
   @Input() element: Article;
   @Input() index: number;
+  @Input() isFavorite;
 
   constructor(
     private iap: InAppBrowser,
@@ -23,7 +24,9 @@ export class NewComponent implements OnInit {
     private dataLocalService: DataLocalService
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // console.log('favorite', this.isFavorite);
+  }
 
   openNews() {
     console.log('new', this.element.url);
@@ -31,6 +34,28 @@ export class NewComponent implements OnInit {
   }
 
   async launchMenu() {
+
+    let saveOrDeleteFav;
+    if (this.isFavorite) { // delete favoite
+      saveOrDeleteFav =  {
+        text: 'Remove',
+        icon: 'trash',
+        handler: () => {
+          console.log('Favorite removed');
+          this.dataLocalService.deleteNews( this.element );
+        }
+      };
+
+    } else {
+      saveOrDeleteFav =  {
+        text: 'Favorite',
+        icon: 'heart',
+        handler: () => {
+          console.log('Favorite clicked');
+          this.dataLocalService.saveNews( this.element );
+        }
+      };
+    }
     const actionSheet = await this.actionController.create({
       buttons: [{
         text: 'Share',
@@ -44,14 +69,9 @@ export class NewComponent implements OnInit {
             this.element.url
           );
         }
-      }, {
-        text: 'Favorite',
-        icon: 'heart',
-        handler: () => {
-          console.log('Favorite clicked');
-          this.dataLocalService.saveNews( this.element );
-        }
-      }, {
+      },
+      saveOrDeleteFav,
+      {
         text: 'Cancel',
         icon: 'close',
         role: 'cancel',

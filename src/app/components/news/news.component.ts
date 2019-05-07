@@ -7,6 +7,7 @@ import { Article } from 'src/app/interfaces/interfaces';
   styleUrls: ['./news.component.scss'],
 })
 export class NewsComponent implements OnInit {
+  @Input() isFavorite = false;
   @Input() news: Article[] = [];
 
   constructor() { }
