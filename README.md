@@ -1,4 +1,4 @@
-# Ionic App Nes
+# Ionic App News
 
 This is a news app using News API => https://newsapi.org/
 
