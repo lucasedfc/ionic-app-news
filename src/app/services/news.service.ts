@@ -7,12 +7,13 @@ const apiKey = environment.apiKey;
 const apiUrl = environment.apiUrl;
 const headers = new HttpHeaders({
   'X-Api-Key': apiKey
-})
+});
 @Injectable({
   providedIn: 'root'
 })
 export class NewsService {
 
+  headlinesPage = 0;
 
   constructor(
     private _http: HttpClient
@@ -24,7 +25,10 @@ export class NewsService {
   }
 
   getTopHeadLines() {
-    return this.executeQuery<ResponseTopHeadLines>(`/top-headlines?country=ar&category=sports`);
+
+    this.headlinesPage++;
+
+    return this.executeQuery<ResponseTopHeadLines>(`/top-headlines?country=ar&category=sports&page=${this.headlinesPage}`);
     // tslint:disable-next-line:max-line-length
 /*     return this._http.get<ResponseTopHeadLines>(apiUrl + '/top-headlines?country=ar&category=sports');
  */  }
