@@ -4,6 +4,12 @@
         <span class="text-primary">{{index + 1}}. </span>
         <span class="news-source-name">{{element.source.name}}</span>
         
+        <div class="news-more">
+          <ion-button fill="clear" (click)="launchMenu()">
+              <ion-icon slot="icon-only" name="more"></ion-icon>
+              
+          </ion-button>
+        </div>
       </ion-card-subtitle>
       <ion-card-title (click)="openNews()">{{element.title}}</ion-card-title>
     </ion-card-header>
