@@ -11,7 +11,9 @@ export class DataLocalService {
 
   constructor(
     private storageService: Storage
-  ) { }
+  ) {
+    this.loadFavorites();
+  }
 
   saveNews(news: Article) {
 
@@ -22,7 +24,11 @@ export class DataLocalService {
     }
   }
 
-  loadFavorites() {
+  async loadFavorites() {
+    const favorites = await this.storageService.get('favorites');
 
+    if (favorites) {
+      this.news = favorites;
+    }
   }
 }
