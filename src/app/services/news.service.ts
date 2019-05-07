@@ -14,6 +14,8 @@ const headers = new HttpHeaders({
 export class NewsService {
 
   headlinesPage = 0;
+  actualCategory: string;
+  categoryPage = 0;
 
   constructor(
     private _http: HttpClient
@@ -35,7 +37,14 @@ export class NewsService {
 
 
   getTopHeadLinesByCategory(category: string) {
-    return this.executeQuery<ResponseTopHeadLines>(`/top-headlines?country=ar&category=${category}`);
+
+    if (this.actualCategory === category) {
+      this.categoryPage++;
+    } else {
+      this.categoryPage = 1;
+      this.actualCategory = category;
+    }
+    return this.executeQuery<ResponseTopHeadLines>(`/top-headlines?country=ar&category=${category}&page=${this.categoryPage}`);
     // tslint:disable-next-line:max-line-length
    /*  return this._http.get<ResponseTopHeadLines>('https://newsapi.org/v2/top-headlines?country=ar&category=' + category ); */
   }

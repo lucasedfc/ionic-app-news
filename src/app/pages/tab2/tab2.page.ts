@@ -29,15 +29,22 @@ constructor(
     this.loadCategory(event.detail.value);
   }
 
-  loadCategory(category: string) {
+  loadCategory(category: string, event?) {
     this.newsService.getTopHeadLinesByCategory(category)
     .subscribe( resp => {
-      console.log('res', resp);
       this.news.push(...resp.articles);
+
+      if (event) {
+        event.target.complete();
+      }
     },
     error => {
       console.log('err', error);
     });
+  }
+
+  loadData( event) {
+    this.loadCategory(this.segment.value, event);
   }
 }
 
